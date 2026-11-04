@@ -1,0 +1,23 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Correo electrónico:</label>
+    <input type="email" formControlName="username" />
+    @if (loginForm.get('username')?.invalid && loginForm.get('username')?.touched) {
+      <div class="error">Por favor ingrese un correo electrónico válido.</div>
+    }
+  </div>
+
+  <div>
+    <label>Contraseña:</label>
+    <input type="password" formControlName="password" />
+    @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+      <!-- touched: el usuario ya pasó por este campo -->
+      <div class="error">La contraseña debe tener al menos 6 caracteres.</div>
+    }
+  </div>
+
+  <button type="submit" [disabled]="!canSubmit()">
+    @if (isLoading()) { Ingresando... } @else { Ingresar }
+  </button>
+  <div>{{ result() }}</div>
+</form>
