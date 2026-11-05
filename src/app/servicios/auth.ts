@@ -1,16 +1,16 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginRequest , TokenResponse } from '../modelos/auth';
+import { LoginRequest, TokenResponse } from '../modelos/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:8080/api/auth/login';
+  private url = 'http://localhost:8080/api/auth';
 
   isAuthenticated = signal(!!localStorage.getItem('token'));
 
   login(credenciales: LoginRequest) {
-    return this.http.post<TokenResponse>(`${this.url}`, credenciales);
+    return this.http.post<TokenResponse>(`${this.url}/login`, credenciales);
   }
 
   guardarSesion(respuesta: TokenResponse): void {
@@ -23,10 +23,9 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  logout(): void {
+    logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('roles');
     this.isAuthenticated.set(false);
   }
-
 }

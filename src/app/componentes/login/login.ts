@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../servicios/auth';
 import { LoginRequest } from '../../modelos/auth';
 
+
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule],
@@ -30,22 +31,22 @@ export class Login {
 
   onSubmit(): void {
     if (!this.canSubmit()) return; 
-      this.isLoading.set(true);
-      const credenciales = this.loginForm.value as LoginRequest;
+    this.isLoading.set(true);
+    const credenciales = this.loginForm.value as LoginRequest;
 
-      this.authService.login(credenciales)
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe({
-          next: (respuesta) => {
-            this.authService.guardarSesion(respuesta);
-            this.result.set('Sesión iniciada correctamente');
-            this.router.navigate(['/']);
-          },
+    this.authService.login(credenciales)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (respuesta) => {
+          this.authService.guardarSesion(respuesta);
+          this.result.set('Sesión iniciada correctamente');
+          this.router.navigate(['/']);
+        },
+        error: () => {
+          this.isLoading.set(false);
+          this.result.set('Error al iniciar sesión');
+        }
+      });
 
-          error: () => {
-            this.isLoading.set(false);
-            this.result.set('Error al iniciar sesión. Verifica tus credenciales.');
-          }
-        });
   }
 }
