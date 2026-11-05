@@ -2,7 +2,13 @@
   <p>Bienvenido a {{ title() }}</p>
   <ul>
     <li><a routerLink="/">Inicio</a></li>
-    <li><a routerLink="/login">Login</a></li>
+    <li>
+      @if (auth.isAuthenticated()){
+        <a href="#" (click)="auth.logout(); $event.preventDefault()">Cerrar sesión</a>
+      }@else{
+        <a routerLink="/login">Iniciar sesión</a>
+      }
+    </li>
     <li><a routerLink="/catalogo">Catálogo</a></li>
   </ul>
 </header>
