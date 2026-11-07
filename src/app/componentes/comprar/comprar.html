@@ -1,0 +1,20 @@
+<form [formGroup]="compraForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label>ID del modelo (por ejemplo: casa-munecas):</label>
+        <input type="text" formControlName="modeloId" />
+        @if (compraForm.get('modeloId')?.invalid && compraForm.get('modeloId')?.touched) {
+        <div class="error">El modelo es obligatorio.</div>
+    }
+    </div>
+
+     <div>
+        <label>ID del comprador (por ejemplo: bruno):</label>
+        <input type="text" formControlName="compradorId" />
+        @if (compraForm.get('compradorId')?.invalid && compraForm.get('compradorId')?.touched) {
+        <div class="error">El comprador es obligatorio.</div>
+    }
+    </div>
+
+    <button type="submit" [disabled]="compraForm.invalid || isLoading()">Comprar</button>
+  <div>{{ result() }}</div>
+</form>

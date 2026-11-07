@@ -1,1 +1,16 @@
-<p>catalogo works!</p>
+<h2>Catálogo</h2>
+
+@if (modelos().length === 0) {
+  <p>todavía no hay modelos publicados</p>
+} @else {
+  <ul>
+    @for (modelo of modelos(); track modelo.id) {
+      <li>
+        <strong>{{ modelo.titulo }}</strong>
+        ({{ modelo.id }}):
+        {{ modelo.precio }} {{ modelo.moneda }},
+            licencia: {{ modelo.licencia }}
+      </li>
+    }
+  </ul>
+}
