@@ -1,16 +1,47 @@
-<h2>Catálogo</h2>
-
-@if (modelos().length === 0) {
-  <p>todavía no hay modelos publicados</p>
-} @else {
-  <ul>
-    @for (modelo of modelos(); track modelo.id) {
-      <li>
-        <strong>{{ modelo.titulo }}</strong>
-        ({{ modelo.id }}):
-        {{ modelo.precio }} {{ modelo.moneda }},
-            licencia: {{ modelo.licencia }}
-      </li>
-    }
-  </ul>
-}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 id="titulo-catalogo" class="h3 mb-0">
+      <i class="fa-solid fa-store me-2"></i>Catálogo de modelos
+    </h1>
+  </div>
+  @if (modelos().length === 0) {
+    <div class="text-center py-5 text-muted">
+      <i class="fa-solid fa-box-open fa-3x mb-3"></i>
+      <p class="h5">Todavía no hay modelos publicados.</p>
+    </div>
+  } @else {
+    <div class="row g-3">
+      @for (modelo of modelos(); track modelo.id) {
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 modelo-card"
+               [class.sin-uso-comercial]="!modelo.permiteUsoComercial">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <span class="fw-semibold">{{ modelo.titulo }}</span>
+              <span class="badge {{ badgeLicencia(modelo.licencia) }}">
+                {{ modelo.licencia }}
+              </span>
+            </div>
+            <div class="card-body">
+              <p class="mb-2">
+                <i class="fa-solid fa-tag me-1"></i>
+                {{ modelo.precio | number:'1.0-0' }} {{ modelo.moneda }}
+              </p>
+              <p class="text-muted small mb-0">
+                @if (modelo.permiteUsoComercial) {
+                  <i class="fa-solid fa-circle-check text-success me-1"></i>Permite uso comercial
+                } @else {
+                  <i class="fa-solid fa-circle-xmark text-danger me-1"></i>Solo uso personal
+                }
+              </p>
+            </div>
+            <div class="card-footer text-end">
+              <a routerLink="/comprar" class="btn btn-sm btn-primary">
+                <i class="fa-solid fa-cart-shopping me-1"></i>Comprar
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,24 +1,31 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
+import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { map } from 'rxjs';
 import { ModelosService } from '../../servicios/modelos';
-import { Modelo } from '../../modelos/catalogo';  
+import { Modelo } from '../../modelos/catalogo';
 
 @Component({
-  imports: [],
   selector: 'app-catalogo',
-  styleUrl: './catalogo.css',
+  imports: [RouterLink, DecimalPipe],
   templateUrl: './catalogo.html',
+  styleUrl: './catalogo.css'
 })
 export class Catalogo {
   private modelosService = inject(ModelosService);
 
-  // la respuesta del backend -- una pág
-  modelos =toSignal(
-    this.modelosService.Listar().pipe(map(pagina => pagina.content)),
-    { initialValue: [] as Modelo[]}
+  modelos = toSignal(
+    this.modelosService.listar().pipe(map(pagina => pagina.content)),
+    { initialValue: [] as Modelo[] }
   );
 
+  badgeLicencia(licencia: string): string {
+    const colores: Record<string, string> = {
+      PERSONAL: 'bg-secondary',
+      COMERCIAL: 'bg-warning text-dark',
+      ILIMITADA: 'bg-success'
+    };
+    return colores[licencia] ?? 'bg-secondary';
+  }
 }
-
-
