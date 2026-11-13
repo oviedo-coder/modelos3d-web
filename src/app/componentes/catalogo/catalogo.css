@@ -1,0 +1,16 @@
+#titulo-catalogo {
+  color: #1a237e;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.modelo-card {
+  transition: box-shadow 0.2s ease;
+}
+.modelo-card.sin-uso-comercial {
+  border-left: 4px solid #dc3545;
+  padding-left: 0.5rem;
+}
+input[type="text"],
+input[type="email"] {
+  border-radius: 6px;
+}
