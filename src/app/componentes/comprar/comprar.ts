@@ -2,8 +2,8 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ComprasService } from '../../servicios/compras';
-import { NotificacionesService } from '../../servicios/notificaciones';
 import { RealizarCompraRequest } from '../../modelos/compras';
+import { NotificacionesService } from '../../servicios/notificaciones';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { RealizarCompraRequest } from '../../modelos/compras';
 })
 export class Comprar {
   private comprasService = inject(ComprasService);
-  private avisos =inject(NotificacionesService);
+  private avisos = inject(NotificacionesService);
   private destroyRef = inject(DestroyRef);
 
   result = signal('');
@@ -38,12 +38,12 @@ export class Comprar {
           const mensaje = `Compra registrada: ${respuesta.id} (${respuesta.estado})`;
           this.result.set(mensaje);
           this.avisos.exito(mensaje);
-          this.compraForm.reset;
+          this.compraForm.reset();
           this.isLoading.set(false);
         },
         error: (err) => {
           if(err.status === 404){
-            this.avisos.error('Error: Ese modelo no existe'); // mensaje suelto
+            this.avisos.error('Error: Ese modelo no existe');
           } else if(err.status === 400){
             this.avisos.error('Error: No se pudo realizar la compra, por favor revisa tus datos');
           } else if(err.status === 401 || err.status === 403){
