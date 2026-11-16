@@ -1,9 +1,23 @@
 <div class="container mt-4">
+
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 id="titulo-catalogo" class="h3 mb-0">
       <i class="fa-solid fa-store me-2"></i>Catálogo de modelos
     </h1>
   </div>
+
+  <!-- búsqueda reactiva-->
+<div class="input-group mb-4">
+    <span class="input-group-text">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+    <input #caja type="text" class="form-control"
+           placeholder="Escribe para buscar por título"
+           (input)="escribir(caja.value)" />
+  </div>
+
+ <!-- termina búsqueda reactiva-->
+
   @if (modelos().length === 0) {
     <div class="text-center py-5 text-muted">
       <i class="fa-solid fa-box-open fa-3x mb-3"></i>
@@ -43,5 +57,22 @@
         </div>
       }
     </div>
+  <!-- Paginación-->
+
+   <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+    <button class="btn btn-outline-primary btn-sm" type="button"  
+          (click)="anterior()" [disabled]="esPrimera()">
+      <i class="fa-solid fa-chevron-left me-1"></i>Anterior
+    </button>
+    <span class="text-muted small">
+      Página {{ pagina() +1 }} de {{ totalPaginas() }} ({{total() }} modelos)
+    </span>
+    <button class="btn btn-outline-primary btn-sm" type="button"  
+          (click)="siguiente()" [disabled]="esUltima()">
+      Siguiente<i class="fa-solid fa-chevron-right me-1"></i>
+    </button>
+ </div>
+
+
   }
 </div>
