@@ -5,7 +5,7 @@ import { Modelo, Pagina } from '../modelos/catalogo';
 @Injectable({ providedIn: 'root' })
 export class ModelosService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:8080/api/modelos';
+  private url = 'https://ecommerce-backend-1vcj.onrender.com/api/modelos';
 
   listar(pagina = 0, tamano = 5, busqueda ='') {
 

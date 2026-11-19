@@ -5,7 +5,7 @@ import { LoginRequest, TokenResponse } from '../modelos/auth';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private url = 'http://localhost:8080/api/auth';
+  private url = 'https://ecommerce-backend-1vcj.onrender.com/api/auth';
 
   isAuthenticated = signal(!!localStorage.getItem('token'));
 
